@@ -58,7 +58,7 @@
             android:layout_marginTop="30dp"
             android:layout_weight="1"
             android:ems="10"
-			android:textColorHint="@color/black"
+			android:textColorHint="@color/grey"
             android:textSize="26sp"
             android:textColor="@color/white"
             android:hint="@string/username" >
@@ -85,7 +85,7 @@
             android:ems="10"
             android:hint="@string/password"
             android:textColor="@color/white"
-            android:textColorHint="@color/black"
+            android:textColorHint="@color/grey"
             android:textSize="26sp" >
 
         </EditText>
