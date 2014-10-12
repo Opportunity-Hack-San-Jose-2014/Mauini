@@ -81,6 +81,8 @@ public class AddProduct extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_add_product);
+		
+		final Intent intent = new Intent(this, Result.class);
 
 		final EditText productNameEditText = (EditText) findViewById(R.id.productNameEditText);
 
@@ -187,6 +189,8 @@ public class AddProduct extends ActionBarActivity {
 					e.printStackTrace();
 				}
                 
+				
+				startActivity(intent);
 				
 				//////Megha!! :D
 //				HttpClient client=new DefaultHttpClient();
@@ -447,6 +451,7 @@ public class AddProduct extends ActionBarActivity {
 			            if(nameValuePairs.get(index).getName().equalsIgnoreCase("image")) {
 			                // If the key equals to "image", we use FileBody to transfer the data
 			                entity.addPart(nameValuePairs.get(index).getName(), new FileBody(new File (nameValuePairs.get(index).getValue())));
+			            	//entity.addPart(nameValuePairs.get(index).getName(), new FileBody(new File ("http://192.168.85.256/wordpress/wp-content/uploads/2014/10/"+nameValuePairs.get(index).getValue())));
 			            } else {
 			                // Normal string data
 			                entity.addPart(nameValuePairs.get(index).getName(), new StringBody(nameValuePairs.get(index).getValue()));

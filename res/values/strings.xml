@@ -16,4 +16,9 @@
     <string name="add_product">Add Product</string>
     <string name="product_desc">Description</string>
     <string name="add_photo">Add Photo</string>
+    <string name="title_activity_result">Result</string>
+    <string name="exit">Exit</string>
+    <string name="product_added">Product added</string>
+    <string name="new_product">Wanna add more?</string>
+
 </resources>

@@ -23,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
 	        	 startActivity(intent);
 	             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 	         } 
-	    }, 3000);
+	    }, 2000);
     }
 
 
