@@ -1,6 +1,7 @@
 package com.example.mauini;
 
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -15,6 +16,13 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -25,7 +33,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.os.StrictMode.ThreadPolicy;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -44,6 +51,8 @@ public class AddProduct extends ActionBarActivity {
 	ImageView productImageView;
 
 	ImageView galleryImageView;
+	
+	String imagepath;
 
 	private static int RESULT_LOAD_IMAGE = 1;
 	// /
@@ -379,6 +388,7 @@ public class AddProduct extends ActionBarActivity {
 				&& null != data) {
 
 			Uri selectedImage = data.getData();
+			imagepath = getPath(selectedImage);
 
 			String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
@@ -401,20 +411,67 @@ public class AddProduct extends ActionBarActivity {
 
 			bp = (Bitmap) BitmapFactory.decodeFile(picturePath);
 			System.out.println("bitmap constructed" + bp);
+			
+			
+			
 
 		}
 
 		else
 
 		{
-
+				
 			bp = (Bitmap) data.getExtras().get("data");
 
 			productImageView.setImageBitmap(bp);
 
 		}
+		
+		new Thread(new Runnable() {						
+			public void run() {
+		
+				String url = "http://192.168.85.226:3000/uploadImage";
+				
+				HttpClient httpClient = new DefaultHttpClient();
+			    HttpContext localContext = new BasicHttpContext();
+			    HttpPost httpPost = new HttpPost(url);
+			    
+			    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			    nameValuePairs.add(new BasicNameValuePair("image",imagepath));
+		
+			    try {
+			    	org.apache.http.entity.mime.MultipartEntity entity = 
+			    			new org.apache.http.entity.mime.MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+		
+			        for(int index=0; index < nameValuePairs.size(); index++) {
+			            if(nameValuePairs.get(index).getName().equalsIgnoreCase("image")) {
+			                // If the key equals to "image", we use FileBody to transfer the data
+			                entity.addPart(nameValuePairs.get(index).getName(), new FileBody(new File (nameValuePairs.get(index).getValue())));
+			            } else {
+			                // Normal string data
+			                entity.addPart(nameValuePairs.get(index).getName(), new StringBody(nameValuePairs.get(index).getValue()));
+			            }
+			        }
+		
+			        httpPost.setEntity(entity);
+		
+			        HttpResponse response = httpClient.execute(httpPost, localContext);
+			    } catch (IOException e) {
+			        e.printStackTrace();
+			    }
+			}
+		}).start();
 
 	}
+	
+	public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

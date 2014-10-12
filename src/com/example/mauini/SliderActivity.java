@@ -67,7 +67,7 @@ public class SliderActivity extends ActionBarActivity {
 				{
 					System.out.println("Email: "+username);
 					System.out.println("password: "+password);
-					if(username.equals("admin@admin.com") && password.equals("admin"))
+					if(username.equals("a@a.a") && password.equals("a"))
 					{
 						startActivity(intent);
 					}
