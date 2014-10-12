@@ -17,6 +17,10 @@ public class MainActivity extends ActionBarActivity {
         
         final Intent intent = new Intent(this, SliderActivity.class);
         
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+		    finish();
+		}
+        
         
         new Handler().postDelayed(new Runnable() { 
 	         public void run() { 		        	 
