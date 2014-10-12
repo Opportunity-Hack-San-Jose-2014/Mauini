@@ -1,22 +1,21 @@
 package com.example.mauini;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
+import java.util.regex.Pattern;
+
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class SliderActivity extends ActionBarActivity {
 
@@ -53,47 +52,71 @@ public class SliderActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-
-				new Thread() {
-					@Override
-					public void run() {
-
-						try {
-
-							HttpResponse response;
-							response = httpclient.execute(httpGet); // execute
-																	// httpGet
-							StatusLine statusLine = response.getStatusLine();
-							int statusCode = statusLine.getStatusCode();
-
-							System.out.println("status Code: " + statusCode);
-
-							Log.i("Code", statusCode + "");
-							
-							//this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
-
-							startActivity(intent);
-							
-							
-//							overridePendingTransition(R.anim.slide_in,R.anim.slide_out);
-							
-							
-//							Looper.prepare();
-//							new Handler().postDelayed(new Runnable() { 
-//						         public void run() { 		        	 
-//						        	 startActivity(intent);
-//						             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-//						         } 
-//						         
-//						    }, 3000);
-//
-//							Looper.loop();
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-
+				
+				String username = usernameEditText.getText().toString();
+				String password = passwordEditText.getText().toString();
+				
+				if (!validEmail(username)) {
+					Toast.makeText(SliderActivity.this,"Enter valid e-mail",Toast.LENGTH_LONG).show();
+				}
+				else if(password.length() == 0)
+				{
+					Toast.makeText(SliderActivity.this,"Enter password",Toast.LENGTH_LONG).show();
+				}
+				else
+				{
+					System.out.println("Email: "+username);
+					System.out.println("password: "+password);
+					if(username.equals("admin@admin.com") && password.equals("admin"))
+					{
+						startActivity(intent);
 					}
-				}.start();
+					else
+					{
+						Toast.makeText(SliderActivity.this,"Wrong Credential",Toast.LENGTH_LONG).show();
+					}
+				}
+
+//				new Thread() {
+//					@Override
+//					public void run() {
+//
+//						try {
+//
+//							HttpResponse response;
+//							response = httpclient.execute(httpGet); // execute
+//																	// httpGet
+//							StatusLine statusLine = response.getStatusLine();
+//							int statusCode = statusLine.getStatusCode();
+//
+//							System.out.println("status Code: " + statusCode);
+//
+//							Log.i("Code", statusCode + "");
+//							
+//							//this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
+//
+//							startActivity(intent);
+//							
+//							
+////							overridePendingTransition(R.anim.slide_in,R.anim.slide_out);
+//							
+//							
+////							Looper.prepare();
+////							new Handler().postDelayed(new Runnable() { 
+////						         public void run() { 		        	 
+////						        	 startActivity(intent);
+////						             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+////						         } 
+////						         
+////						    }, 3000);
+////
+////							Looper.loop();
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//						}
+//
+//					}
+//				}.start();
 
 				// String username = usernameEditText.getText().toString();
 				// String password = passwordEditText.getText().toString();
@@ -107,6 +130,11 @@ public class SliderActivity extends ActionBarActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.slider, menu);
 		return true;
+	}
+	
+	private boolean validEmail(String email) {
+	    Pattern pattern = Patterns.EMAIL_ADDRESS;
+	    return pattern.matcher(email).matches();
 	}
 
 	@Override

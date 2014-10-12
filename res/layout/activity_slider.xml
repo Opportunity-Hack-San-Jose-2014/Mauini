@@ -58,6 +58,7 @@
             android:layout_marginTop="30dp"
             android:layout_weight="1"
             android:ems="10"
+            android:inputType="textEmailAddress"
 			android:textColorHint="@color/grey"
             android:textSize="26sp"
             android:textColor="@color/white"
@@ -83,6 +84,7 @@
             android:layout_marginTop="30dp"
             android:layout_weight="1"
             android:ems="10"
+            android:inputType="textPassword"
             android:hint="@string/password"
             android:textColor="@color/white"
             android:textColorHint="@color/grey"
@@ -111,6 +113,7 @@
 		    android:textColor="@color/white" />
     
     </LinearLayout>
-    
+
+   
 
 </LinearLayout>

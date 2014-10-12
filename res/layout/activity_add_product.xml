@@ -48,7 +48,9 @@
 	        android:id="@+id/ProductNameLinearLayout"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"        
-	        android:orientation="horizontal" >
+	        android:orientation="horizontal"
+	        android:paddingLeft="20dp"
+        	android:paddingRight="20dp" >
 	
 	        <EditText
 	            android:id="@+id/productNameEditText"
@@ -66,7 +68,9 @@
 	        android:id="@+id/ActualPriceLinearLayout"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"        
-	        android:orientation="horizontal" >
+	        android:orientation="horizontal"
+	        android:paddingLeft="20dp"
+        	android:paddingRight="20dp" >
 	
 	        <EditText
 	            android:id="@+id/actualPriceEditText"
@@ -85,7 +89,9 @@
 	        android:id="@+id/SellingPriceLinearLayout"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"        
-	        android:orientation="horizontal" >
+	        android:orientation="horizontal"
+	        android:paddingLeft="20dp"
+        	android:paddingRight="20dp" >
 	
 	        <EditText
 	            android:id="@+id/sellingPriceEditText"
@@ -104,7 +110,9 @@
 	        android:id="@+id/ProductDescLinearLayout"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"        
-	        android:orientation="horizontal" >         
+	        android:orientation="horizontal"
+	        android:paddingLeft="20dp"
+        	android:paddingRight="20dp" >         
 	         
 	         <EditText
 	            android:id="@+id/productDescEditText"
@@ -136,7 +144,9 @@
 	        android:id="@+id/AddProductLinearLayout"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"        
-	        android:orientation="horizontal" >
+	        android:orientation="horizontal"
+	        android:paddingLeft="20dp"
+        	android:paddingRight="20dp" >
 	     	
 	     	<Button
 	        	 android:id="@+id/addProductButton"
